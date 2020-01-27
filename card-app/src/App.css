@@ -18,6 +18,13 @@ form {
     margin-bottom: 2rem;
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
+}
+
+form #error{
+    flex-basis: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .header {
