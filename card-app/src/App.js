@@ -2,9 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import './App.css';
-
 //GitHub usernames: gaearon, sophiebits, sebmarkbage, bvaughn
-
 const CardList = (props) => {
   return (
     <div>
@@ -32,8 +30,14 @@ class Form extends React.Component {
   state = {userName: ''};
   handleSubmit = async (event) => {
     event.preventDefault();
-    const resp = await axios.get(`https://api.github.com/users/${this.state.userName}`);
-    this.props.onSubmit(resp.data);
+    try {
+      const resp = await axios.get(`https://api.github.com/users/${this.state.userName}`);
+      this.props.onSubmit(resp.data);
+      document.getElementById('error').innerText = "";
+    } catch (error) {
+      document.getElementById('error').innerText = "invalid username";
+      console.log(error);
+    }
     this.setState({userName: ''});
   };
 
@@ -48,7 +52,9 @@ class Form extends React.Component {
           required
         />
         <button>Add card</button>
+        <label id="error"></label>
       </form>
+
     );
   }
 }
