@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 
 const testData = [
@@ -34,10 +34,22 @@ class Card extends React.Component {
 }
 
 class Form extends React.Component {
-  render(){
+  state = {userName: ''};
+  handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(this.state.userName);
+  };
+
+  render() {
     return (
-      <form action="">
-        <input type="text" placeholder="GitHub username"/>
+      <form onSubmit={this.handleSubmit}>
+        <input
+          type="text"
+          value={this.state.userName}
+          onChange={event => this.setState({userName: event.target.value})}
+          placeholder="GitHub username"
+          required
+        />
         <button>Add card</button>
       </form>
     );
@@ -51,16 +63,15 @@ class App extends React.Component {
   //     profiles: testData,
   //   };
   // }
-
   state = {
-    profiles: testData, 
+    profiles: testData,
   };
 
   render() {
     return (
       <div>
         <div className={"header"}>{this.props.title}</div>
-        <Form />
+        <Form/>
         <CardList profiles={this.state.profiles}/>
       </div>
     );
